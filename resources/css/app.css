@@ -1,0 +1,104 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Main brand color (maroon), with white and yellow as accents. */
+    --color-maroon-50: #fdf2f3;
+    --color-maroon-100: #fbe5e7;
+    --color-maroon-200: #f5c7cc;
+    --color-maroon-300: #ec9aa3;
+    --color-maroon-400: #dc6370;
+    --color-maroon-500: #c23a4a;
+    --color-maroon-600: #a32638;
+    --color-maroon-700: #861d2e;
+    --color-maroon-800: #6e1a28;
+    --color-maroon-900: #5a1824;
+    --color-maroon-950: #330a11;
+
+    --animate-fade-in: fade-in 0.25s ease-out;
+    --animate-pop-in: pop-in 0.2s ease-out;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes pop-in {
+        from {
+            opacity: 0;
+            transform: scale(0.96);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Tailwind 4 no longer gives buttons a pointer cursor, so restore it for every clickable control. */
+    button:not(:disabled),
+    [role='button'],
+    select,
+    label:has(input[type='radio']),
+    label:has(input[type='checkbox']),
+    input[type='radio'],
+    input[type='checkbox'],
+    input[type='file'],
+    input[type='date'] {
+        cursor: pointer;
+    }
+
+    button:disabled {
+        cursor: not-allowed;
+    }
+
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    label {
+        transition-property: color, background-color, border-color, box-shadow, transform, translate, scale, opacity;
+        transition-duration: 150ms;
+        transition-timing-function: ease-out;
+    }
+
+    input[type='radio'],
+    input[type='checkbox'] {
+        accent-color: var(--color-maroon-700);
+    }
+
+    dialog[open] {
+        animation: var(--animate-pop-in);
+    }
+
+    dialog::backdrop {
+        animation: var(--animate-fade-in);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
